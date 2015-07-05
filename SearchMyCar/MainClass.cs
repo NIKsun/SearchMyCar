@@ -5,10 +5,12 @@ using System.Text;
 
 namespace SearchMyCar
 {
-    class Program
+    class MainClass
     {
         static void Main(string[] args)
         {
+            Searcher s = new Searcher();
+            Console.Write(s.search());
         }
     }
 }
