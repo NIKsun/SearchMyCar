@@ -21,12 +21,11 @@ namespace SearchMyCar
                 cars = searcher.search(cars);
                 numberOfNewCars = cars.Count - oldCarCount;
                 Console.WriteLine("Search sucsessfully. New cars - {0}", numberOfNewCars);
-                string message = "<html><table>";
+                string message = "<html><table border=2>";
 
-                int lastIndex = cars.Count - 1;
                 for (int i = 0; i < numberOfNewCars; i++)
                 {
-                    Car buffer = cars[lastIndex-i];
+                    Car buffer = cars[cars.Count - numberOfNewCars + i];
                     message += "<tr>";
                     message += buffer.GetMessage();
                     message += "</tr>";

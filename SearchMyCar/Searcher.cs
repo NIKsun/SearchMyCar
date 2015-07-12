@@ -22,8 +22,11 @@ namespace SearchMyCar
 
         public string GetMessage()
         {
-            string result = "<td><a href=" + this.href + "><img src=" + this.img + "></td><td></a>";
-            result += this.message;
+            if (img.Length == 81)
+                img = img.Insert(img.LastIndexOf('/'), "/");
+            string result = "<td><a     href=" + this.href + "><img src=" + this.img + "></td><td></a>";
+            result += this.message; 
+            result += "<br>" + this.date_create.ToString() + " => " + this.date_update.ToString();
             result += "<br>Цена: " + this.price;
             result += "<br>Год: " + this.year;
             result += "<br>Пробег: " + this.mileage ;
@@ -64,7 +67,11 @@ namespace SearchMyCar
                 if (child.Attributes[0].Value.IndexOf("images") != -1)
                 { 
                     this.href = child.FirstChild.Attributes[1].Value;
-                    this.img = child.FirstChild.FirstChild.Attributes[0].Value;
+                    
+                    if (child.FirstChild.FirstChild.Attributes[0].Name == "src")
+                        this.img = child.FirstChild.FirstChild.Attributes[0].Value;
+                    else
+                        this.img = child.FirstChild.FirstChild.Attributes[2].Value;
                 }
                 if (child.Attributes[0].Value.IndexOf("cell_mark_id") != -1)
                 {
@@ -95,7 +102,7 @@ namespace SearchMyCar
         {
             //Отправляем запрос,где textBox1 - строка с адресом
 
-            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/vaz/2110/group-sedan/all/?sort%5Bcreate_date%5D=desc");
+            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/vaz/2114/group-hatchback_5d/all/?search%5Bsection_id%5D=0&search%5Bmark%5D%5B0%5D=288&search%5Bmark-folder%5D%5B0%5D=288-3899&search%5Bsalon_id%5D=&search%5Byear%5D%5Bmin%5D=&search%5Byear%5D%5Bmax%5D=&search%5Bprice%5D%5Bmin%5D=&search%5Bprice%5D%5Bmax%5D=&search%5Bengine_volume%5D%5Bmin%5D=&search%5Bengine_volume%5D%5Bmax%5D=&search%5Brun%5D%5Bmax%5D=&search%5Bengine_power%5D%5Bmin%5D=&search%5Bengine_power%5D%5Bmax%5D=&search%5Bcustom%5D=1&search%5Bacceleration%5D%5Bmin%5D=&search%5Bacceleration%5D%5Bmax%5D=&search%5Bstate%5D=1&search%5Bgeo_region%5D=&search%5Bgeo_city%5D=&search%5Bgeo_country%5D=&search%5Bgeo_similar_cities%5D=&search%5Bperiod%5D=0&show_sales=1&sort%5Bcreate_date%5D=desc");
             System.Net.WebResponse resp = reqGET.GetResponse();
             System.IO.Stream stream = resp.GetResponseStream();
             System.IO.StreamReader sr = new System.IO.StreamReader(stream, Encoding.UTF8);            
@@ -104,9 +111,13 @@ namespace SearchMyCar
 
             HtmlDocument doc = new HtmlDocument();
             doc.Load(new StringReader(html));
-            HtmlNode node = doc.DocumentNode.SelectSingleNode(@"/html/body/div[1]/div[3]/article/div[1]/div[1]/div/div[12]");
-
             
+            int i = 1;
+            HtmlNode node = doc.DocumentNode.SelectSingleNode(@"/html/body/div[1]/div[3]/article/div[1]/div[1]/div/div[" + i.ToString() + "]");
+
+            while (node.Attributes == null || node.Attributes[0].Value != "widget widget_theme_white sales-list")
+                node = doc.DocumentNode.SelectSingleNode(@"/html/body/div[1]/div[3]/article/div[1]/div[1]/div/div[" + (++i).ToString() + "]");
+
             bool isNewCar;
             foreach (HtmlNode child in node.ChildNodes)
             {
