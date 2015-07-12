@@ -29,7 +29,6 @@ namespace SearchMyCar
             mymessage.From = new MimeMailAddress(user);
             mymessage.To.Add(toMail);
             mymessage.Subject = "SearchMyCar " + DateTime.Now.Date.ToString().Split(' ')[0];
-
             message = Encoding.GetEncoding("ISO-8859-1").GetString(Encoding.Default.GetBytes(message));
             mymessage.Body = message;
 

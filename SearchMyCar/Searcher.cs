@@ -22,14 +22,12 @@ namespace SearchMyCar
 
         public string GetMessage()
         {
-            string result = "<br>";
+            string result = "<td><a href=" + this.href + "><img src=" + this.img + "></td><td></a>";
             result += this.message;
-            result += "<br>Image: " + this.img;
-            result += "<br>Reference: " + this.href;
             result += "<br>Year: " + this.year;
             result += "<br>City: " + this.city;
             result += "<br>Price: " + this.price;
-            result += "<br>Mileage: " + this.mileage;
+            result += "<br>Mileage: " + this.mileage + "</td>";
             return result;
          }
         public void ParseAttrs(string[] Attrs)
