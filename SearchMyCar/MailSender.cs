@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using System.Net;
 using System.Net.Mail;
 using AegisImplicitMail;
@@ -11,7 +12,7 @@ namespace SearchMyCar
         string host = "smtp.yandex.ru";
         string user = "chernuhinnv@yandex.ru";
         string pass = "chernik2";
-        int port;
+        int port = 465;
 
         public MailSender(string toMail, string host, string user, string pass, int port)
         {
@@ -28,6 +29,8 @@ namespace SearchMyCar
             mymessage.From = new MimeMailAddress(user);
             mymessage.To.Add(toMail);
             mymessage.Subject = "SearchMyCar " + DateTime.Now.Date.ToString().Split(' ')[0];
+
+            message = Encoding.GetEncoding("ISO-8859-1").GetString(Encoding.Default.GetBytes(message));
             mymessage.Body = message;
 
             //Create Smtp Client

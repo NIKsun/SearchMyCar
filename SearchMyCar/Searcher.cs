@@ -9,16 +9,29 @@ namespace SearchMyCar
     class Car
     {
         public int carId;
+        
         string img;
         string href;
         string city;
         string message;
-
         int price;
         int mileage;
         int year;
         DateTime date_create;
         DateTime date_update;
+
+        public string GetMessage()
+        {
+            string result = "<br>";
+            result += this.message;
+            result += "<br>Image: " + this.img;
+            result += "<br>Reference: " + this.href;
+            result += "<br>Year: " + this.year;
+            result += "<br>City: " + this.city;
+            result += "<br>Price: " + this.price;
+            result += "<br>Mileage: " + this.mileage;
+            return result;
+         }
         public void ParseAttrs(string[] Attrs)
         {
             foreach (var attr in Attrs)
@@ -84,7 +97,7 @@ namespace SearchMyCar
         {
             //Отправляем запрос,где textBox1 - строка с адресом
 
-            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/chevrolet/lacetti/all/?sort%5Bcreate_date%5D=desc");
+            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/vaz/2110/group-sedan/all/?sort%5Bcreate_date%5D=desc");
             System.Net.WebResponse resp = reqGET.GetResponse();
             System.IO.Stream stream = resp.GetResponseStream();
             System.IO.StreamReader sr = new System.IO.StreamReader(stream, Encoding.UTF8);            
