@@ -24,10 +24,10 @@ namespace SearchMyCar
         {
             string result = "<td><a href=" + this.href + "><img src=" + this.img + "></td><td></a>";
             result += this.message;
-            result += "<br>Year: " + this.year;
-            result += "<br>City: " + this.city;
-            result += "<br>Price: " + this.price;
-            result += "<br>Mileage: " + this.mileage + "</td>";
+            result += "<br>Цена: " + this.price;
+            result += "<br>Год: " + this.year;
+            result += "<br>Пробег: " + this.mileage ;
+            result += "<br>Город: " + this.city + "</td>";
             return result;
          }
         public void ParseAttrs(string[] Attrs)
