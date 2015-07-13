@@ -72,6 +72,9 @@ namespace SearchMyCar
                         this.img = child.FirstChild.FirstChild.Attributes[0].Value;
                     else
                         this.img = child.FirstChild.FirstChild.Attributes[2].Value;
+
+                    if (this.img == @"/i/all7/img/no-photo-thumb.png")
+                        this.img = "http://auto.ru/i/all7/img/no-photo-thumb.png width=\"131\" height=\"98\"";
                 }
                 if (child.Attributes[0].Value.IndexOf("cell_mark_id") != -1)
                 {
@@ -102,7 +105,7 @@ namespace SearchMyCar
         {
             //Отправляем запрос,где textBox1 - строка с адресом
 
-            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/vaz/2114/group-hatchback_5d/all/?search%5Bsection_id%5D=0&search%5Bmark%5D%5B0%5D=288&search%5Bmark-folder%5D%5B0%5D=288-3899&search%5Bsalon_id%5D=&search%5Byear%5D%5Bmin%5D=&search%5Byear%5D%5Bmax%5D=&search%5Bprice%5D%5Bmin%5D=&search%5Bprice%5D%5Bmax%5D=&search%5Bengine_volume%5D%5Bmin%5D=&search%5Bengine_volume%5D%5Bmax%5D=&search%5Brun%5D%5Bmax%5D=&search%5Bengine_power%5D%5Bmin%5D=&search%5Bengine_power%5D%5Bmax%5D=&search%5Bcustom%5D=1&search%5Bacceleration%5D%5Bmin%5D=&search%5Bacceleration%5D%5Bmax%5D=&search%5Bstate%5D=1&search%5Bgeo_region%5D=&search%5Bgeo_city%5D=&search%5Bgeo_country%5D=&search%5Bgeo_similar_cities%5D=&search%5Bperiod%5D=0&show_sales=1&sort%5Bcreate_date%5D=desc");
+            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/chevrolet/lanos/group-sedan/all/?sort%5Bcreate_date%5D=desc");
             System.Net.WebResponse resp = reqGET.GetResponse();
             System.IO.Stream stream = resp.GetResponseStream();
             System.IO.StreamReader sr = new System.IO.StreamReader(stream, Encoding.UTF8);            
