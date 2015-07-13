@@ -90,6 +90,11 @@ namespace SearchMyCar
 
     class Searcher
     {
+        string requset;
+        public Searcher(string requset)
+        {
+            this.requset = requset;
+        }
         public string buildRequest(int price_to)
         {
             return null;
@@ -105,7 +110,7 @@ namespace SearchMyCar
         {
             //Отправляем запрос,где textBox1 - строка с адресом
 
-            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(@"http://auto.ru/cars/chevrolet/lanos/group-sedan/all/?sort%5Bcreate_date%5D=desc");
+            System.Net.WebRequest reqGET = System.Net.WebRequest.Create(this.requset);
             System.Net.WebResponse resp = reqGET.GetResponse();
             System.IO.Stream stream = resp.GetResponseStream();
             System.IO.StreamReader sr = new System.IO.StreamReader(stream, Encoding.UTF8);            

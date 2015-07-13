@@ -9,16 +9,22 @@ namespace SearchMyCar
     {
         static void Main(string[] args)
         {
-            Searcher searcher = new Searcher();
             MailSender mailSender = new MailSender("chernik2@gmail.com", "smtp.yandex.ru","chernuhinnv@yandex.ru", "chernik2", 465);
 
             List<Car> cars = new List<Car>();
+            List<Searcher> crawlers = new List<Searcher>();
+
+            string request;
+            while ((request = Console.ReadLine()) != "")
+                crawlers.Add(new Searcher(request));
+
             int oldCarCount, numberOfNewCars;
             while(true)
             {
                 Console.WriteLine("New search {0}", DateTime.Now);
                 oldCarCount = cars.Count;
-                cars = searcher.search(cars);
+                foreach(var crawler in crawlers)
+                    cars = crawler.search(cars);
                 numberOfNewCars = cars.Count - oldCarCount;
                 Console.WriteLine("Search sucsessfully. New cars - {0}", numberOfNewCars);
                 string message = "<html><table border=2>";
