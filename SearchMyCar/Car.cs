@@ -19,7 +19,13 @@ namespace SearchMyCar
 
         public string AndroidMessage()
         {
-            string result = this.message;
+            string result = this.img + "@@@";
+            result += this.message;
+            result += "<br>" + this.date_create.ToString() + " => " + this.date_update.ToString();
+            result += "<br>Цена: " + this.price;
+            result += "<br>Год: " + this.year;
+            result += "<br>Пробег: " + this.mileage;
+            result += "<br>Город: " + this.city + "</td>";
             return result;
         }
         public string GetMessage()

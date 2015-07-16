@@ -33,10 +33,11 @@ namespace SearchMyCar
                 searcher.Search(cars);
 
                 string reply = null;
-                foreach (var car in cars)
+                /*foreach (var car in cars)
                 {
                     reply += car.AndroidMessage() + "  ";
-                } 
+                } */
+                reply = cars.First().AndroidMessage();
                 byte[] msg = Encoding.UTF8.GetBytes(reply);
                 connection.Send(msg);
             }
